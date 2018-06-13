@@ -1,3 +1,7 @@
+package ru.stqa.pft.sandbox;
+
+import ru.stqa.pft.sandbox.Point;
+
 public class MyFirstProgram {
 
 	public static double distance(Point p1, Point p2) {         //Задание 2.2

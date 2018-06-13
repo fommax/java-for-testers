@@ -1,3 +1,5 @@
+package ru.stqa.pft.sandbox;
+
 import java.lang.Math;
 
 public class Point {        //Задание 2.1
