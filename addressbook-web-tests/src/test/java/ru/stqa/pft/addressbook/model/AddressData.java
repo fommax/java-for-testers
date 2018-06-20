@@ -1,4 +1,6 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.model;
+
+import ru.stqa.pft.addressbook.tests.TestBase;
 
 public class AddressData {
   private final String firstname;
