@@ -9,9 +9,9 @@ public class AddressDeletionTests extends TestBase {
     @Test
     public void testAddressDeletion() {
         app.getNavigationHelper().goToHomePage();
-        app.selectAddress();
-        app.deleteSelectedAddress();
-        app.returnToHomePage();
+        app.getContactHelper().selectAddress();
+        app.getContactHelper().deleteSelectedAddress();
+        app.getContactHelper().returnToHomePage();
     }
 
 }

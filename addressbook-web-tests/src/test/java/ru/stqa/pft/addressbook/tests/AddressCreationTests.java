@@ -8,10 +8,10 @@ public class AddressCreationTests extends TestBase{
     @Test
     public void testAddressCreation() {
         app.getNavigationHelper().goToHomePage();
-        app.initAddressCreation();
-        app.fillAddressForm(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5"));
-        app.sumbitAddressCreation();
-        app.returnToHomePage();
+        app.getContactHelper().initAddressCreation();
+        app.getContactHelper().fillAddressForm(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5"));
+        app.getContactHelper().sumbitAddressCreation();
+        app.getContactHelper().returnToHomePage();
     }
 
 }
