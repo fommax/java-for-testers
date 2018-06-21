@@ -41,4 +41,12 @@ public class ContactHelper extends BaseHelper {
   public void selectAddress() {
     click(By.name("selected[]"));
   }
+
+  public void initAddressModification() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void submitAddressModification() {
+    click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
 }
