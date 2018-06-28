@@ -36,10 +36,12 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email2"), addressData.getSecond_email());
     type(By.name("address2"), addressData.getSecond_address());
 
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    if (! (addressData.getGroup() == null)) {
+      if (creation) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
+      } else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
     }
   }
 
@@ -58,5 +60,16 @@ public class ContactHelper extends BaseHelper {
 
   public void submitAddressModification() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
+
+  public void createAddress(AddressData address, boolean creation) {
+    initAddressCreation();
+    fillAddressForm(address, true);
+    sumbitAddressCreation();
+    returnToHomePage();
+  }
+
+  public boolean isThereAnAddress() {
+    return isElementPresent(By.name("selected[]"));
   }
 }
