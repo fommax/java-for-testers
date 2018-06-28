@@ -9,7 +9,7 @@ public class AddressCreationTests extends TestBase{
     public void testAddressCreation() {
         app.getNavigationHelper().goToHomePage();
         app.getContactHelper().initAddressCreation();
-        app.getContactHelper().fillAddressForm(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5"));
+        app.getContactHelper().fillAddressForm(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", "test1"), true);
         app.getContactHelper().sumbitAddressCreation();
         app.getContactHelper().returnToHomePage();
     }

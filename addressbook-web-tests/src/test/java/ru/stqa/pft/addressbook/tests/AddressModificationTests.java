@@ -10,7 +10,7 @@ public class AddressModificationTests extends TestBase {
     app.getNavigationHelper().goToHomePage();
     app.getContactHelper().selectAddress();
     app.getContactHelper().initAddressModification();
-    app.getContactHelper().fillAddressForm(new AddressData("Alexander", "Brux", "Huebscherstrasse 12", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5"));
+    app.getContactHelper().fillAddressForm(new AddressData("Alexander", "Brux", "Huebscherstrasse 12", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", null), false);
     app.getContactHelper().submitAddressModification();
     app.getContactHelper().returnToHomePage();
   }
