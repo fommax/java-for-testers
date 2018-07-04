@@ -50,8 +50,8 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
-  public void selectAddress() {
-    click(By.name("selected[]"));
+  public void selectAddress(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initAddressModification() {
