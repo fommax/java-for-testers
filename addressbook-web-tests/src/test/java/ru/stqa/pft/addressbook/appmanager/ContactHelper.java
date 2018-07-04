@@ -3,10 +3,15 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -76,4 +81,19 @@ public class ContactHelper extends BaseHelper {
   public int getAddressCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
+
+  public List<AddressData> getAddressList() {
+    List<AddressData> addresses = new ArrayList<AddressData>();
+    List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=\"entry\"]"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      String lastname = cells.get(1).getText();
+      String firstname = cells.get(2).getText();
+      String thisaddress = cells.get(3).getText();
+      AddressData address = new AddressData(lastname, firstname, thisaddress, null, null, null, null, null, null);
+      addresses.add(address);
+    }
+    return addresses;
+  }
+
 }
