@@ -55,12 +55,16 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
+  public void selectAddress() {
+    click(By.name("selected[]"));
+  }
+
   public void selectAddress(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void initAddressModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initAddressModification(int index) {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[8]/a/img"));
   }
 
   public void submitAddressModification() {
@@ -87,10 +91,10 @@ public class ContactHelper extends BaseHelper {
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=\"entry\"]"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      String thisaddress = cells.get(3).getText();
-      AddressData address = new AddressData(lastname, firstname, thisaddress, null, null, null, null, null, null);
+      AddressData address = new AddressData(id, firstname, lastname, null, null, null, null, null, null, null);
       addresses.add(address);
     }
     return addresses;
