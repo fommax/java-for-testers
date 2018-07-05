@@ -41,7 +41,7 @@ public class AddressData {
   }
 
   public AddressData(String firstname, String lastname, String Address, String homeNumber, String mobilePhoneNumber, String email, String second_email, String second_address, String group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.firstname = firstname;
     this.lastname = lastname;
     this.address = Address;
