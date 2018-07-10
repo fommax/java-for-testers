@@ -78,6 +78,14 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
+  public void modifyContact(AddressData address, int index) {
+    selectAddress();
+    initAddressModification(index);
+    fillAddressForm(address, false);
+    submitAddressModification();
+    returnToHomePage();
+  }
+
   public boolean isThereAnAddress() {
     return isElementPresent(By.name("selected[]"));
   }

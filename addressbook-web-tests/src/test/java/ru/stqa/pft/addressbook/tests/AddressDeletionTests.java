@@ -1,21 +1,27 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
 import java.util.List;
 
 public class AddressDeletionTests extends TestBase {
-    
 
-    
-    @Test
-    public void testAddressDeletion() {
+    @BeforeMethod
+    public void ensurePreconditions() {
         app.getNavigationHelper().goToHomePage();
         if (! app.getContactHelper().isThereAnAddress()) {
             app.getContactHelper().createAddress(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", null), true);
         }
+    }
+
+
+
+    @Test
+    public void testAddressDeletion() {
+
         List<AddressData> before = app.getContactHelper().getAddressList();
         app.getContactHelper().selectAddress(before.size() - 1);
         app.getContactHelper().deleteSelectedAddress();
