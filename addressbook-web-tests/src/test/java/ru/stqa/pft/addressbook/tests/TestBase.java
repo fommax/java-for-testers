@@ -1,21 +1,16 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
-import ru.stqa.pft.addressbook.model.AddressData;
-
-import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
 
-  protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+  protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
   FirefoxDriver wd;
 
   public static boolean isAlertPresent(FirefoxDriver wd) {
@@ -27,7 +22,7 @@ public class TestBase {
       }
   }
 
-  @BeforeMethod
+  @BeforeSuite
   public void setUp() throws Exception {
     app.init();
   }
@@ -37,7 +32,7 @@ public class TestBase {
 
 
 
-  @AfterMethod
+  @AfterSuite
   public void tearDown() {
     app.stop();
   }
