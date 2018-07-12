@@ -3,21 +3,19 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class AddressCreationTests extends TestBase{
 
     @Test
     public void testAddressCreation() {
-        app.getNavigationHelper().goToHomePage();
-        List<AddressData> before = app.getContactHelper().getAddressList();
+        app.goTo().homePage();
+        List<AddressData> before = app.contact().list();
         AddressData address = new AddressData("Alexander", "Brooks", null, null, null, null, null, null, null);
-        app.getContactHelper().createAddress(address, true);
-        List<AddressData> after = app.getContactHelper().getAddressList();
+        app.contact().create(address, true);
+        List<AddressData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         /*int max = 0;

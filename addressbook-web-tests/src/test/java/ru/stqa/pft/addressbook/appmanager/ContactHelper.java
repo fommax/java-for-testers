@@ -71,14 +71,14 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
-  public void createAddress(AddressData address, boolean creation) {
+  public void create(AddressData address, boolean creation) {
     initAddressCreation();
     fillAddressForm(address, true);
     sumbitAddressCreation();
     returnToHomePage();
   }
 
-  public void modifyContact(AddressData address, int index) {
+  public void modify(AddressData address, int index) {
     selectAddress();
     initAddressModification(index);
     fillAddressForm(address, false);
@@ -94,7 +94,13 @@ public class ContactHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<AddressData> getAddressList() {
+  public void delete(int index) {
+    selectAddress(index);
+    deleteSelectedAddress();
+    returnToHomePage();
+  }
+
+  public List<AddressData> list() {
     List<AddressData> addresses = new ArrayList<AddressData>();
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=\"entry\"]"));
     for (WebElement row : rows) {

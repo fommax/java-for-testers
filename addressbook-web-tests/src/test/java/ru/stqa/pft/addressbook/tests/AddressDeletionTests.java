@@ -11,9 +11,9 @@ public class AddressDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.getNavigationHelper().goToHomePage();
-        if (! app.getContactHelper().isThereAnAddress()) {
-            app.getContactHelper().createAddress(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", null), true);
+        app.goTo().homePage();
+        if (app.contact().list().size() == 0) {
+            app.contact().create(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", null), true);
         }
     }
 
@@ -22,15 +22,16 @@ public class AddressDeletionTests extends TestBase {
     @Test
     public void testAddressDeletion() {
 
-        List<AddressData> before = app.getContactHelper().getAddressList();
-        app.getContactHelper().selectAddress(before.size() - 1);
-        app.getContactHelper().deleteSelectedAddress();
-        app.getContactHelper().returnToHomePage();
-        List<AddressData> after = app.getContactHelper().getAddressList();
+        List<AddressData> before = app.contact().list();
+        int index = before.size() - 1;
+        app.contact().delete(index);
+        List<AddressData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(before.size() - 1);
         Assert.assertEquals(before, after);
     }
+
+
 
 }
