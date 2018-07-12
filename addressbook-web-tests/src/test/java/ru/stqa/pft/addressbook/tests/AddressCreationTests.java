@@ -4,18 +4,17 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class AddressCreationTests extends TestBase{
 
     @Test
     public void testAddressCreation() {
         app.goTo().homePage();
-        List<AddressData> before = app.contact().list();
+        Set<AddressData> before = app.contact().all();
         AddressData address = new AddressData().withFirstname("Alexander").withLastname("Brooks");
         app.contact().create(address, true);
-        List<AddressData> after = app.contact().list();
+        Set<AddressData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         /*int max = 0;
@@ -25,11 +24,11 @@ public class AddressCreationTests extends TestBase{
             }
         }*/
         int max1 = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
-        address.withId(max1);
+        address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt());
         before.add(address);
-        Comparator<? super AddressData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+        /*Comparator<? super AddressData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
-        after.sort(byId);
+        after.sort(byId);*/
         Assert.assertEquals(before, after);
 
         /*address.setId(max);

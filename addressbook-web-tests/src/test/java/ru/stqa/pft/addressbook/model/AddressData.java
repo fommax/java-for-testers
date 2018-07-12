@@ -7,6 +7,23 @@ import java.util.Objects;
 public class AddressData {
   private int id = Integer.MAX_VALUE;
   private String firstname;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AddressData that = (AddressData) o;
+    return id == that.id &&
+            Objects.equals(firstname, that.firstname) &&
+            Objects.equals(lastname, that.lastname);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(id, firstname, lastname);
+  }
+
   private String lastname;
   private String address;
   private String homeNumber;
@@ -126,19 +143,4 @@ public class AddressData {
     return group;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    AddressData that = (AddressData) o;
-    return id == that.id &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-
-    return Objects.hash(id, firstname, lastname);
-  }
 }
