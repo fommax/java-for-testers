@@ -1,11 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Addresses;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class AddressModificationTests extends TestBase {
 
@@ -23,20 +29,15 @@ public class AddressModificationTests extends TestBase {
 
   @Test
   public void testAddressModification() {
-    Set<AddressData> before = app.contact().all();
+    Addresses before = app.contact().all();
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstname("Alexander").withLastname("Brux");
     int index = before.size() - 1;
     app.contact().modify(address, index);
-    Set<AddressData> after = app.contact().all();
+    Addresses after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(modifiedAddress);
-    before.add(address);
-    /*Comparator<? super AddressData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-    before.sort(byId);
-    after.sort(byId);*/
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
 
   }
 
