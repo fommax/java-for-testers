@@ -13,7 +13,11 @@ public class AddressDeletionTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
-            app.contact().create(new AddressData("Alexander", "Brooks", "Huebscherstrasse 9", "62-49-58", "89518392390", "cold_soviet_steel@yahoo.com", "asoulyetunborn@gmail.com", "Fellenbergstrasse 5", null), true);
+            app.contact().create(new AddressData()
+                    .withFirstname("Alexander").withLastname("Brooks").withAddress("Huebscherstrasse 9")
+                    .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390")
+                    .withEmail("cold_soviet_steel@yahoo.com").withSecond_email("asoulyetunborn@gmail.com")
+                    .withSecond_address("Fellenbergstrasse 5"), true);
         }
     }
 

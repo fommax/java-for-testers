@@ -5,16 +5,68 @@ import ru.stqa.pft.addressbook.tests.TestBase;
 import java.util.Objects;
 
 public class AddressData {
-  private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String address;
-  private final String homeNumber;
-  private final String mobilePhoneNumber;
-  private final String email;
-  private final String second_email;
-  private final String second_address;
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
+  private String lastname;
+  private String address;
+  private String homeNumber;
+  private String mobilePhoneNumber;
+  private String email;
+  private String second_email;
+  private String second_address;
   private String group;
+
+  public AddressData withId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public AddressData withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public AddressData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public AddressData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public AddressData withHomeNumber(String homeNumber) {
+    this.homeNumber = homeNumber;
+    return this;
+  }
+
+  public AddressData withMobilePhoneNumber(String mobilePhoneNumber) {
+    this.mobilePhoneNumber = mobilePhoneNumber;
+    return this;
+  }
+
+  public AddressData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public AddressData withSecond_email(String second_email) {
+    this.second_email = second_email;
+    return this;
+  }
+
+  public AddressData withSecond_address(String second_address) {
+    this.second_address = second_address;
+    return this;
+  }
+
+  public AddressData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
+
 
   @Override
   public String toString() {
@@ -36,35 +88,8 @@ public class AddressData {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
 
-  public AddressData(String firstname, String lastname, String Address, String homeNumber, String mobilePhoneNumber, String email, String second_email, String second_address, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = Address;
-    this.homeNumber = homeNumber;
-    this.mobilePhoneNumber = mobilePhoneNumber;
-    this.email = email;
-    this.second_email = second_email;
-    this.second_address = second_address;
-    this.group = group;
-  }
 
-  public AddressData(int id, String firstname, String lastname, String Address, String homeNumber, String mobilePhoneNumber, String email, String second_email, String second_address, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = Address;
-    this.homeNumber = homeNumber;
-    this.mobilePhoneNumber = mobilePhoneNumber;
-    this.email = email;
-    this.second_email = second_email;
-    this.second_address = second_address;
-    this.group = group;
-  }
   public String getFirstname() {
     return firstname;
   }

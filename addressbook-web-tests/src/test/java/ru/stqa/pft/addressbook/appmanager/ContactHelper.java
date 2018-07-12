@@ -108,7 +108,7 @@ public class ContactHelper extends BaseHelper {
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      AddressData address = new AddressData(id, firstname, lastname, null, null, null, null, null, null, null);
+      AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname);
       addresses.add(address);
     }
     return addresses;
