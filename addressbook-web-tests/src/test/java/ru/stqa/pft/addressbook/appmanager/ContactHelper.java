@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -78,6 +76,7 @@ public class ContactHelper extends BaseHelper {
     initAddressCreation();
     fillAddressForm(address, true);
     sumbitAddressCreation();
+    addressCache = null;
     returnToHomePage();
   }
 
@@ -86,6 +85,7 @@ public class ContactHelper extends BaseHelper {
     initAddressModification(index);
     fillAddressForm(address, false);
     submitAddressModification();
+    addressCache = null;
     returnToHomePage();
   }
 
@@ -105,12 +105,17 @@ public class ContactHelper extends BaseHelper {
   public void delete(AddressData address) {
     selectAddressById(address.getId());
     deleteSelectedAddress();
+    addressCache = null;
     returnToHomePage();
   }
 
+  private Addresses addressCache = null;
 
   public Addresses all() {
-    Addresses addresses = new Addresses();
+    if (addressCache != null) {
+      return new Addresses(addressCache);
+    }
+    addressCache = new Addresses();
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=\"entry\"]"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -118,9 +123,9 @@ public class ContactHelper extends BaseHelper {
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
       AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname);
-      addresses.add(address);
+      addressCache.add(address);
     }
-    return addresses;
+    return new Addresses(addressCache);
   }
 
 
