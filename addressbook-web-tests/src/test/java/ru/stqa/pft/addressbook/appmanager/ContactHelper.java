@@ -1,17 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -63,6 +61,10 @@ public class ContactHelper extends BaseHelper {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectAddressById(int id) {
+    wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
+  }
+
   public void initAddressModification(int index) {
     click(By.xpath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[8]/a/img"));
   }
@@ -99,9 +101,15 @@ public class ContactHelper extends BaseHelper {
     deleteSelectedAddress();
     returnToHomePage();
   }
+  public void delete(AddressData address) {
+    selectAddressById(address.getId());
+    deleteSelectedAddress();
+    returnToHomePage();
+  }
 
-  public List<AddressData> list() {
-    List<AddressData> addresses = new ArrayList<AddressData>();
+
+  public Set<AddressData> all() {
+    Set<AddressData> addresses = new HashSet<AddressData>();
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=\"entry\"]"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -113,5 +121,6 @@ public class ContactHelper extends BaseHelper {
     }
     return addresses;
   }
+
 
 }
