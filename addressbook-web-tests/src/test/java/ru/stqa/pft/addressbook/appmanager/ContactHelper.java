@@ -65,11 +65,12 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void initAddressModification(int id) {
-    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+    /* WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
     WebElement row = checkbox.findElement(By.xpath("./../.."));
     List<WebElement> cells = row.findElements(By.tagName("td"));
-    cells.get(7).findElement(By.tagName("a")).click();
-    //click(By.xpath("//table[@id='maintable']/tbody/tr[" + (id + 2) + "]/td[8]/a/img"));
+    cells.get(7).findElement(By.tagName("a")).click();*/
+
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
 
   public void submitAddressModification() {
@@ -126,11 +127,27 @@ public class ContactHelper extends BaseHelper {
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname);
+      //String[] phones = cells.get(5).getText().split("\n"); разрез строк
+      String allPhones = cells.get(5).getText(); //склейка строк
+
+      /*AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname)
+              .withHomeNumber(phones[0]).withMobilePhoneNumber(phones[1]);*/
+      AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname)
+              .withAllPhones(allPhones);
       addressCache.add(address);
     }
     return new Addresses(addressCache);
   }
 
+  public AddressData infoFromEditForm(AddressData address) {
+    initAddressModification(address.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    wd.navigate().back();
+    return new AddressData().withId(address.getId()).withFirstname(firstname)
+            .withLastname(lastname).withHomeNumber(home).withMobilePhoneNumber(mobile);
+  }
 
 }

@@ -8,7 +8,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -33,13 +35,32 @@ public class AddressModificationTests extends TestBase {
     Addresses before = app.contact().all();
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstname("Alexander").withLastname("Brux");
-    int index = before.size() - 1;
     app.contact().modify(address);
     assertEquals(app.contact().count(), before.size());
     Addresses after = app.contact().all();
     assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
-
   }
 
+  @Test
+  public void testNumbersDataConsistency() {
+    app.goTo().homePage();
+    AddressData address = app.contact().all().iterator().next();
+    AddressData addressInfoFromEditForm = app.contact().infoFromEditForm(address);
+
+    //assertThat(address.getHomeNumber(), equalTo(cleaned(addressInfoFromEditForm.getHomeNumber())));
+    //assertThat(address.getMobilePhoneNumber(), equalTo(cleaned(addressInfoFromEditForm.getMobilePhoneNumber())));
+    assertThat(address.getAllPhones(), equalTo(mergePhones(addressInfoFromEditForm)));
+  }
+
+  private String mergePhones(AddressData address) {
+    return Arrays.asList(address.getHomeNumber(), address.getMobilePhoneNumber())
+            .stream().filter((s) -> ! s.equals(""))
+            .map(AddressModificationTests::cleaned)
+            .collect(Collectors.joining("\n"));
+  }
+
+  public static String cleaned(String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-)(]", "");
+  }
 
 }

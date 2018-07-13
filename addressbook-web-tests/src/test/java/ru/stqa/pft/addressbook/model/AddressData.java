@@ -33,6 +33,17 @@ public class AddressData {
   private String second_address;
   private String group;
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public AddressData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  private String allPhones;
+
   public AddressData withId(int id) {
     this.id = id;
     return this;
