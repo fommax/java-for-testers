@@ -34,7 +34,7 @@ public class AddressModificationTests extends TestBase {
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstname("Alexander").withLastname("Brux");
     int index = before.size() - 1;
-    app.contact().modify(address, index);
+    app.contact().modify(address);
     assertEquals(app.contact().count(), before.size());
     Addresses after = app.contact().all();
     assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));

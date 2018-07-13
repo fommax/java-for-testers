@@ -64,8 +64,12 @@ public class ContactHelper extends BaseHelper {
     wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
   }
 
-  public void initAddressModification(int index) {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[8]/a/img"));
+  public void initAddressModification(int id) {
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+    WebElement row = checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(7).findElement(By.tagName("a")).click();
+    //click(By.xpath("//table[@id='maintable']/tbody/tr[" + (id + 2) + "]/td[8]/a/img"));
   }
 
   public void submitAddressModification() {
@@ -80,9 +84,9 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
-  public void modify(AddressData address, int index) {
+  public void modify(AddressData address) {
     selectAddress();
-    initAddressModification(index);
+    initAddressModification(address.getId());
     fillAddressForm(address, false);
     submitAddressModification();
     addressCache = null;
