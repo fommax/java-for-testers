@@ -12,6 +12,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 public class AddressDeletionTests extends TestBase {
 
@@ -36,11 +37,8 @@ public class AddressDeletionTests extends TestBase {
         AddressData deletedAddress = before.iterator().next();
         int index = before.size() - 1;
         app.contact().delete(deletedAddress);
+        assertEquals(app.contact().count(), before.size() - 1);
         Addresses after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(deletedAddress);
-        Assert.assertEquals(before, after);
         assertThat(after, equalTo(before.without(deletedAddress)));
     }
 

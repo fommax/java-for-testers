@@ -1,13 +1,8 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -21,9 +16,8 @@ public class AddressCreationTests extends TestBase{
         Addresses before = app.contact().all();
         AddressData address = new AddressData().withFirstname("Alexander").withLastname("Brooks");
         app.contact().create(address, true);
+        assertEquals(app.contact().count(), before.size() + 1);
         Addresses after = app.contact().all();
-        assertEquals(after.size(), before.size() + 1);
-
         assertThat(after, equalTo(before.withAdded(address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
 
     }
