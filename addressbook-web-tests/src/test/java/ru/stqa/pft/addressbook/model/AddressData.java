@@ -32,17 +32,27 @@ public class AddressData {
   private String second_email;
   private String second_address;
   private String group;
+  private String allPhones;
+  private String allEmails;
+  private String allAddresses;
 
-  public String getAllPhones() {
-    return allPhones;
-  }
+
 
   public AddressData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
   }
 
-  private String allPhones;
+  public AddressData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+  public AddressData withAllAddresses(String allAddresses) {
+    this.allAddresses = allAddresses;
+    return this;
+  }
+
 
   public AddressData withId(int id) {
     this.id = id;
@@ -116,7 +126,17 @@ public class AddressData {
     return id;
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
 
+  public String getAllAddresses() {
+    return allAddresses;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
 
   public String getFirstname() {
     return firstname;

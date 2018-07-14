@@ -129,11 +129,13 @@ public class ContactHelper extends BaseHelper {
       String firstname = cells.get(2).getText();
       //String[] phones = cells.get(5).getText().split("\n"); разрез строк
       String allPhones = cells.get(5).getText(); //склейка строк
+      String allEmails = cells.get(4).getText();
+      String allAddresses = cells.get(3).getText();
 
       /*AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname)
               .withHomeNumber(phones[0]).withMobilePhoneNumber(phones[1]);*/
       AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname)
-              .withAllPhones(allPhones);
+              .withAllPhones(allPhones).withAllEmails(allEmails).withAllAddresses(allAddresses);
       addressCache.add(address);
     }
     return new Addresses(addressCache);
@@ -145,9 +147,13 @@ public class ContactHelper extends BaseHelper {
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String email1 = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String thisaddress = wd.findElement(By.name("address")).getAttribute("value");
     wd.navigate().back();
     return new AddressData().withId(address.getId()).withFirstname(firstname)
-            .withLastname(lastname).withHomeNumber(home).withMobilePhoneNumber(mobile);
+            .withLastname(lastname).withHomeNumber(home).withMobilePhoneNumber(mobile).withEmail(email1)
+            .withSecond_email(email2).withAddress(thisaddress);
   }
 
 }

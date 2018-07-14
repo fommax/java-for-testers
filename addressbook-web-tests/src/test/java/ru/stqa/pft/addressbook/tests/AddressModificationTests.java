@@ -52,6 +52,22 @@ public class AddressModificationTests extends TestBase {
     assertThat(address.getAllPhones(), equalTo(mergePhones(addressInfoFromEditForm)));
   }
 
+  @Test
+  public void testAddressDataConsistency() {
+    app.goTo().homePage();
+    AddressData address = app.contact().all().iterator().next();
+    AddressData addressInfoFromEditForm = app.contact().infoFromEditForm(address);
+    assertThat(address.getAllAddresses(), equalTo(mergeAddresses(addressInfoFromEditForm)));
+  }
+
+  @Test
+  public void testEmailDataConsistency() {
+    app.goTo().homePage();
+    AddressData address = app.contact().all().iterator().next();
+    AddressData addressInfoFromEditForm = app.contact().infoFromEditForm(address);
+    assertThat(address.getAllEmails(), equalTo(mergeEmails(addressInfoFromEditForm)));
+  }
+
   private String mergePhones(AddressData address) {
     return Arrays.asList(address.getHomeNumber(), address.getMobilePhoneNumber())
             .stream().filter((s) -> ! s.equals(""))
@@ -59,8 +75,22 @@ public class AddressModificationTests extends TestBase {
             .collect(Collectors.joining("\n"));
   }
 
-  public static String cleaned(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-)(]", "");
+  private String mergeAddresses(AddressData address) {
+    return Arrays.asList(address.getAddress())
+            .stream().filter((s) -> ! s.equals(""))
+            .map(AddressModificationTests::cleaned)
+            .collect(Collectors.joining("\n"));
+  }
+
+  private String mergeEmails(AddressData address) {
+    return Arrays.asList(address.getEmail(), address.getSecond_email())
+            .stream().filter((s) -> ! s.equals(""))
+            .map(AddressModificationTests::cleaned)
+            .collect(Collectors.joining("\n"));
+  }
+
+  public static String cleaned(String object) {
+    return object.replaceAll("\\s", "").replaceAll("[-)/(]", "");
   }
 
 }
