@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.model;
 
 import ru.stqa.pft.addressbook.tests.TestBase;
 
+import java.io.File;
 import java.util.Objects;
 
 public class AddressData {
@@ -38,6 +39,18 @@ public class AddressData {
   private String allPhones;
   private String allEmails;
   private String allAddresses;
+  private File photo;
+
+  public File getPhoto() {
+    return photo;
+  }
+
+  public AddressData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
+
 
 
 
