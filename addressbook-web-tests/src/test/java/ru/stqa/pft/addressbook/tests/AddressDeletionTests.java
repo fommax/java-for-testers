@@ -22,9 +22,9 @@ public class AddressDeletionTests extends TestBase {
         if (app.contact().all().size() == 0) {
             app.contact().create(new AddressData()
                     .withFirstname("Alexander").withLastname("Brooks").withAddress("Huebscherstrasse 9")
-                    .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390")
+                    .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390").withWorkPhoneNumber("02")
                     .withEmail("cold_soviet_steel@yahoo.com").withSecond_email("asoulyetunborn@gmail.com")
-                    .withSecond_address("Fellenbergstrasse 5"), true);
+                    .withThird_email("aoulyetunborn@gmail.com").withSecond_address("Fellenbergstrasse 5"), true);
         }
     }
 

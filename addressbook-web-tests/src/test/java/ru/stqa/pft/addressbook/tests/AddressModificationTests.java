@@ -24,9 +24,9 @@ public class AddressModificationTests extends TestBase {
     if (app.contact().all().size() == 0) {
       app.contact().create(new AddressData()
               .withFirstname("Alexander").withLastname("Brooks").withAddress("Huebscherstrasse 9")
-              .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390")
+              .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390").withWorkPhoneNumber("02")
               .withEmail("cold_soviet_steel@yahoo.com").withSecond_email("asoulyetunborn@gmail.com")
-              .withSecond_address("Fellenbergstrasse 5"), true);
+              .withThird_email("aoulyetunborn@gmail.com").withSecond_address("Fellenbergstrasse 5"), true);
     }
   }
 
@@ -69,7 +69,7 @@ public class AddressModificationTests extends TestBase {
   }
 
   private String mergePhones(AddressData address) {
-    return Arrays.asList(address.getHomeNumber(), address.getMobilePhoneNumber())
+    return Arrays.asList(address.getHomeNumber(), address.getMobilePhoneNumber(), address.getWorkPhoneNumber())
             .stream().filter((s) -> ! s.equals(""))
             .map(AddressModificationTests::cleaned)
             .collect(Collectors.joining("\n"));
@@ -83,14 +83,14 @@ public class AddressModificationTests extends TestBase {
   }
 
   private String mergeEmails(AddressData address) {
-    return Arrays.asList(address.getEmail(), address.getSecond_email())
+    return Arrays.asList(address.getEmail(), address.getSecond_email(), address.getThird_email())
             .stream().filter((s) -> ! s.equals(""))
             .map(AddressModificationTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
   public static String cleaned(String object) {
-    return object.replaceAll("\\s", "").replaceAll("[-)/(]", "");
+    return object.replaceAll("\\s+", "").replaceAll("[-)/(]", "");
   }
 
 }

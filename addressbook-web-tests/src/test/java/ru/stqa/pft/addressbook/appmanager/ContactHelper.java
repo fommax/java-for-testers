@@ -34,8 +34,10 @@ public class ContactHelper extends BaseHelper {
     type(By.name("address"), addressData.getAddress());
     type(By.name("home"), addressData.getHomeNumber());
     type(By.name("mobile"), addressData.getMobilePhoneNumber());
+    type(By.name("work"), addressData.getWorkPhoneNumber());
     type(By.name("email"), addressData.getEmail());
     type(By.name("email2"), addressData.getSecond_email());
+    type(By.name("email3"), addressData.getThird_email());
     type(By.name("address2"), addressData.getSecond_address());
 
     if (! (addressData.getGroup() == null)) {
@@ -130,7 +132,7 @@ public class ContactHelper extends BaseHelper {
       //String[] phones = cells.get(5).getText().split("\n"); разрез строк
       String allPhones = cells.get(5).getText(); //склейка строк
       String allEmails = cells.get(4).getText();
-      String allAddresses = cells.get(3).getText();
+      String allAddresses = cells.get(3).getText().replaceAll("\\s+", "");
 
       /*AddressData address = new AddressData().withId(id).withFirstname(firstname).withLastname(lastname)
               .withHomeNumber(phones[0]).withMobilePhoneNumber(phones[1]);*/
@@ -147,13 +149,15 @@ public class ContactHelper extends BaseHelper {
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
     String email1 = wd.findElement(By.name("email")).getAttribute("value");
     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     String thisaddress = wd.findElement(By.name("address")).getAttribute("value");
     wd.navigate().back();
     return new AddressData().withId(address.getId()).withFirstname(firstname)
-            .withLastname(lastname).withHomeNumber(home).withMobilePhoneNumber(mobile).withEmail(email1)
-            .withSecond_email(email2).withAddress(thisaddress);
+            .withLastname(lastname).withHomeNumber(home).withMobilePhoneNumber(mobile).withWorkPhoneNumber(work)
+            .withEmail(email1).withSecond_email(email2).withThird_email(email3).withAddress(thisaddress);
   }
 
 }

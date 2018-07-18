@@ -5,8 +5,7 @@ import ru.stqa.pft.addressbook.tests.TestBase;
 import java.util.Objects;
 
 public class AddressData {
-  private int id = Integer.MAX_VALUE;
-  private String firstname;
+
 
   @Override
   public boolean equals(Object o) {
@@ -24,12 +23,16 @@ public class AddressData {
     return Objects.hash(id, firstname, lastname);
   }
 
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
   private String lastname;
   private String address;
   private String homeNumber;
   private String mobilePhoneNumber;
+  private String workPhoneNumber;
   private String email;
   private String second_email;
+  private String third_email;
   private String second_address;
   private String group;
   private String allPhones;
@@ -84,6 +87,11 @@ public class AddressData {
     return this;
   }
 
+  public AddressData withWorkPhoneNumber(String workPhoneNumber) {
+    this.workPhoneNumber = workPhoneNumber;
+    return this;
+  }
+
   public AddressData withEmail(String email) {
     this.email = email;
     return this;
@@ -91,6 +99,11 @@ public class AddressData {
 
   public AddressData withSecond_email(String second_email) {
     this.second_email = second_email;
+    return this;
+  }
+
+  public AddressData withThird_email(String third_email) {
+    this.third_email = third_email;
     return this;
   }
 
@@ -115,8 +128,10 @@ public class AddressData {
             ", address='" + address + '\'' +
             ", homeNumber='" + homeNumber + '\'' +
             ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
+            ", workPhoneNumber='" + workPhoneNumber + '\'' +
             ", email='" + email + '\'' +
             ", second_email='" + second_email + '\'' +
+            ", third_email='" + third_email + '\'' +
             ", second_address='" + second_address + '\'' +
             ", group='" + group + '\'' +
             '}';
@@ -158,12 +173,20 @@ public class AddressData {
     return mobilePhoneNumber;
   }
 
+  public String getWorkPhoneNumber() {
+    return workPhoneNumber;
+  }
+
   public String getEmail() {
     return email;
   }
 
   public String getSecond_email() {
     return second_email;
+  }
+
+  public String getThird_email() {
+    return third_email;
   }
 
   public String getSecond_address() {
