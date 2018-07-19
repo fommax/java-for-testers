@@ -1,10 +1,13 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("address")
 public class AddressData {
 
 
@@ -24,6 +27,7 @@ public class AddressData {
     return Objects.hash(id, firstname, lastname);
   }
 
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
   private String firstname;
   private String lastname;
@@ -49,9 +53,6 @@ public class AddressData {
     this.photo = photo;
     return this;
   }
-
-
-
 
 
   public AddressData withAllPhones(String allPhones) {

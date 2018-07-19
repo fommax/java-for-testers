@@ -1,0 +1,46 @@
+<list>
+  <address>
+    <firstname>firstname 0</firstname>
+    <lastname>lastname 0</lastname>
+    <address>address 0</address>
+    <homeNumber>hnumber 0</homeNumber>
+    <mobilePhoneNumber>mnumber 0</mobilePhoneNumber>
+    <workPhoneNumber>wnumber 0</workPhoneNumber>
+    <email>email@0</email>
+    <second__email>semail@0</second__email>
+    <third__email>3email@0</third__email>
+  </address>
+  <address>
+    <firstname>firstname 1</firstname>
+    <lastname>lastname 1</lastname>
+    <address>address 1</address>
+    <homeNumber>hnumber 1</homeNumber>
+    <mobilePhoneNumber>mnumber 1</mobilePhoneNumber>
+    <workPhoneNumber>wnumber 1</workPhoneNumber>
+    <email>email@1</email>
+    <second__email>semail@1</second__email>
+    <third__email>3email@1</third__email>
+  </address>
+  <address>
+    <firstname>firstname 2</firstname>
+    <lastname>lastname 2</lastname>
+    <address>address 2</address>
+    <homeNumber>hnumber 2</homeNumber>
+    <mobilePhoneNumber>mnumber 2</mobilePhoneNumber>
+    <workPhoneNumber>wnumber 2</workPhoneNumber>
+    <email>email@2</email>
+    <second__email>semail@2</second__email>
+    <third__email>3email@2</third__email>
+  </address>
+  <address>
+    <firstname>firstname 3</firstname>
+    <lastname>lastname 3</lastname>
+    <address>address 3</address>
+    <homeNumber>hnumber 3</homeNumber>
+    <mobilePhoneNumber>mnumber 3</mobilePhoneNumber>
+    <workPhoneNumber>wnumber 3</workPhoneNumber>
+    <email>email@3</email>
+    <second__email>semail@3</second__email>
+    <third__email>3email@3</third__email>
+  </address>
+</list>
