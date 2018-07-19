@@ -23,18 +23,21 @@ public class AddressCreationTests extends TestBase{
 
     @DataProvider
     public Iterator<Object[]> validAddresses() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addresses.xml")));
-        String xml = "";
-        String line = reader.readLine();
-        while (line != null) {
-            xml += line;
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addresses.xml")))) {
+            String xml = "";
+            String line = reader.readLine();
+            while (line != null) {
+                xml += line;
+                line = reader.readLine();
+            }
+            XStream xstream = new XStream();
+            xstream.processAnnotations(AddressData.class);
+            List<AddressData> addresses = (List<AddressData>) xstream.fromXML(xml);
+            return addresses.stream().map((a) -> new Object[] {a}).collect(Collectors.toList()).iterator();
+
         }
-        XStream xstream = new XStream();
-        xstream.processAnnotations(AddressData.class);
-        List<AddressData> addresses = (List<AddressData>) xstream.fromXML(xml);
-        return addresses.stream().map((a) -> new Object[] {a}).collect(Collectors.toList()).iterator();
     }
+
 
     @Test(dataProvider = "validAddresses")
     public void testAddressCreation(AddressData address) {

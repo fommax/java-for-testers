@@ -51,20 +51,21 @@ public class AddressDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(AddressData.class);
     String xml = xstream.toXML(addresses);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xml);
+    }
   }
 
   private void saveAsCsv(List<AddressData> addresses, File file) throws IOException {
-    Writer writer = new FileWriter(file);
-    for (AddressData address : addresses) {
-      writer.write(String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:", address.getFirstname(), address.getLastname(), address.getAddress(),
-              address.getHomeNumber(), address.getMobilePhoneNumber(), address.getWorkPhoneNumber(),
-              address.getEmail(),address.getSecond_email(),address.getThird_email(),
-              address.getSecond_address(), address.getGroup()));
+    System.out.println(new File(".").getAbsolutePath());
+    try (Writer writer = new FileWriter(file)) {
+      for (AddressData address : addresses) {
+        writer.write(String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:", address.getFirstname(), address.getLastname(), address.getAddress(),
+                address.getHomeNumber(), address.getMobilePhoneNumber(), address.getWorkPhoneNumber(),
+                address.getEmail(),address.getSecond_email(),address.getThird_email(),
+                address.getSecond_address(), address.getGroup()));
+      }
     }
-    writer.close();
   }
 
   private List<AddressData> generateAddresses(int count) {
