@@ -40,7 +40,7 @@ public class GroupDataGenerator {
   private void save(List<GroupData> groups, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (GroupData group : groups) {
-      writer.write(String.format("%s:%s:%s", group.getName(), group.getHeader(), group.getFooter()));
+      writer.write(String.format("%s:%s:%s:", group.getName(), group.getHeader(), group.getFooter()));
     }
     writer.close();
   }
