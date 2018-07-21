@@ -32,15 +32,4 @@
     <second__email>semail@2</second__email>
     <third__email>3email@2</third__email>
   </address>
-  <address>
-    <firstname>firstname 3</firstname>
-    <lastname>lastname 3</lastname>
-    <address>address 3</address>
-    <homeNumber>hnumber 3</homeNumber>
-    <mobilePhoneNumber>mnumber 3</mobilePhoneNumber>
-    <workPhoneNumber>wnumber 3</workPhoneNumber>
-    <email>email@3</email>
-    <second__email>semail@3</second__email>
-    <third__email>3email@3</third__email>
-  </address>
 </list>
