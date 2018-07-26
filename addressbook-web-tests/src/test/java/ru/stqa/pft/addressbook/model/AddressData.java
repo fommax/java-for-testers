@@ -2,55 +2,85 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("address")
+@Entity
+@Table(name = "addressbook")
 public class AddressData {
 
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    AddressData that = (AddressData) o;
-    return id == that.id &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-
-    return Objects.hash(id, firstname, lastname);
-  }
 
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private int id = Integer.MAX_VALUE;
+
+  @Column (name = "firstname")
   private String firstname;
+
+  @Column (name = "lastname")
   private String lastname;
+
+  @Column (name = "address")
+  @Type (type = "text")
   private String address;
+
+  @Column (name = "home")
+  @Type (type = "text")
   private String homeNumber;
+
+  @Column (name = "mobile")
+  @Type (type = "text")
   private String mobilePhoneNumber;
+
+  @Column (name = "work")
+  @Type (type = "text")
   private String workPhoneNumber;
+
+  @Column (name = "email")
+  @Type (type = "text")
   private String email;
+
+  @Column (name = "email2")
+  @Type (type = "text")
   private String second_email;
+
+  @Column (name = "email3")
+  @Type (type = "text")
   private String third_email;
+
+  @Column (name = "address2")
+  @Type (type = "text")
   private String second_address;
+
+  @Transient
   private String group;
+
+  @Transient
   private String allPhones;
+
+  @Transient
   private String allEmails;
+
+  @Transient
   private String allAddresses;
-  private File photo;
+
+  @Column (name = "photo")
+  @Type (type = "text")
+  private String photo;
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public AddressData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -209,6 +239,22 @@ public class AddressData {
 
   public String getGroup() {
     return group;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AddressData that = (AddressData) o;
+    return id == that.id &&
+            Objects.equals(firstname, that.firstname) &&
+            Objects.equals(lastname, that.lastname);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(id, firstname, lastname);
   }
 
 }
