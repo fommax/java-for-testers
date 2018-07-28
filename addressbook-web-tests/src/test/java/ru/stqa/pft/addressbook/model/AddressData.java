@@ -248,13 +248,25 @@ public class AddressData {
     AddressData that = (AddressData) o;
     return id == that.id &&
             Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(homeNumber, that.homeNumber) &&
+            Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) &&
+            Objects.equals(workPhoneNumber, that.workPhoneNumber) &&
+            Objects.equals(email, that.email) &&
+            Objects.equals(second_email, that.second_email) &&
+            Objects.equals(third_email, that.third_email);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, lastname, address, homeNumber, mobilePhoneNumber, workPhoneNumber, email, second_email, third_email);
+  }
+
+  public String getPhotoPath() {
+    return photo;
+
   }
 
 }

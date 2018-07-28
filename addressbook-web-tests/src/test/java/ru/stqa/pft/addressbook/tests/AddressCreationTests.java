@@ -42,13 +42,13 @@ public class AddressCreationTests extends TestBase{
     @Test(dataProvider = "validAddresses")
     public void testAddressCreation(AddressData address) {
         app.goTo().homePage();
-        Addresses before = app.contact().all();
+        Addresses before = app.db().addresses();
         /*File photo = new File("src/test/resources/che.jpg");
         AddressData address = new AddressData().withFirstname("Alexander").withLastname("Brooks")
                 .withPhoto(photo);*/
         app.contact().create(address, true);
-        assertEquals(app.contact().count(), before.size() + 1);
-        Addresses after = app.contact().all();
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
+        Addresses after = app.db().addresses();
         assertThat(after, equalTo(before.withAdded(address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
 
     }

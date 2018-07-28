@@ -32,11 +32,11 @@ public class DbHelper {
     session.close();
     return new Groups(result);
   }
-
+  /* */
   public Addresses addresses() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<AddressData> result = session.createQuery( "from AddressData where deprecated = '0000-00-00' " ).list();
+    List<AddressData> result = session.createQuery( "from AddressData where deprecated = '0000-00-00'" ).list();
     session.getTransaction().commit();
     session.close();
     return new Addresses(result);
