@@ -50,6 +50,7 @@ public class AddressCreationTests extends TestBase{
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Addresses after = app.db().addresses();
         assertThat(after, equalTo(before.withAdded(address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
+        verifyAddressListInUI();
 
     }
 

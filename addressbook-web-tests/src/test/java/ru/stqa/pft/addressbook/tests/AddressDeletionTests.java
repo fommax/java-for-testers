@@ -39,6 +39,7 @@ public class AddressDeletionTests extends TestBase {
         assertEquals(app.contact().count(), before.size() - 1);
         Addresses after = app.db().addresses();
         assertThat(after, equalTo(before.without(deletedAddress)));
+        verifyAddressListInUI();
     }
 
 

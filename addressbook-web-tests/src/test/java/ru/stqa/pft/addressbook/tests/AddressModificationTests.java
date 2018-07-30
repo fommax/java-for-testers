@@ -43,9 +43,10 @@ public class AddressModificationTests extends TestBase {
     assertThat(app.contact().count(), equalTo(before.size()));
     Addresses after = app.db().addresses();
     assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
+    verifyAddressListInUI();
   }
 
-  @Test
+  @Test (enabled = false)
   public void testNumbersDataConsistency() {
     app.goTo().homePage();
     AddressData address = app.contact().all().iterator().next();
@@ -56,7 +57,7 @@ public class AddressModificationTests extends TestBase {
     assertThat(address.getAllPhones(), equalTo(mergePhones(addressInfoFromEditForm)));
   }
 
-  @Test
+  @Test (enabled = false)
   public void testAddressDataConsistency() {
     app.goTo().homePage();
     AddressData address = app.contact().all().iterator().next();
@@ -64,7 +65,7 @@ public class AddressModificationTests extends TestBase {
     assertThat(address.getAllAddresses(), equalTo(mergeAddresses(addressInfoFromEditForm)));
   }
 
-  @Test
+  @Test (enabled = false)
   public void testEmailDataConsistency() {
     app.goTo().homePage();
     AddressData address = app.contact().all().iterator().next();
