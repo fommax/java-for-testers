@@ -41,6 +41,9 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email"), addressData.getEmail());
     type(By.name("email2"), addressData.getSecond_email());
     type(By.name("email3"), addressData.getThird_email());
+    /*if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
+      wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).click();
+    }*/
     type(By.name("address2"), addressData.getSecond_address());
 
     if (addressData.getGroups().size() > 0) {
