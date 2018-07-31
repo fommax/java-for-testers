@@ -43,9 +43,10 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email3"), addressData.getThird_email());
     type(By.name("address2"), addressData.getSecond_address());
 
-    if (! (addressData.getGroup() == null)) {
+    if (addressData.getGroups().size() > 0) {
       if (creation) {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
+        Assert.assertTrue(addressData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroups().iterator().next().getName());
       } else {
         Assert.assertFalse(isElementPresent(By.name("new_group")));
       }

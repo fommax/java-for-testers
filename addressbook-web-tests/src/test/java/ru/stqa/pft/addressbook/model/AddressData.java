@@ -7,7 +7,9 @@ import ru.stqa.pft.addressbook.tests.TestBase;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("address")
 @Entity
@@ -59,8 +61,10 @@ public class AddressData {
   @Type (type = "text")
   private String second_address;
 
-  @Transient
-  private String group;
+
+  @ManyToMany (fetch = FetchType.EAGER)
+  @JoinTable (name = "address_in_groups", joinColumns = @JoinColumn (name = "id"), inverseJoinColumns = @JoinColumn (name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Transient
   private String allPhones;
@@ -156,10 +160,7 @@ public class AddressData {
     return this;
   }
 
-  public AddressData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+
 
 
 
@@ -177,7 +178,6 @@ public class AddressData {
             ", second_email='" + second_email + '\'' +
             ", third_email='" + third_email + '\'' +
             ", second_address='" + second_address + '\'' +
-            ", group='" + group + '\'' +
             '}';
   }
 
@@ -237,8 +237,8 @@ public class AddressData {
     return second_address;
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override
@@ -269,4 +269,8 @@ public class AddressData {
 
   }
 
+  public AddressData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

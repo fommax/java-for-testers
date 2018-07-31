@@ -63,7 +63,7 @@ public class AddressDataGenerator {
         writer.write(String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:", address.getFirstname(), address.getLastname(), address.getAddress(),
                 address.getHomeNumber(), address.getMobilePhoneNumber(), address.getWorkPhoneNumber(),
                 address.getEmail(),address.getSecond_email(),address.getThird_email(),
-                address.getSecond_address(), address.getGroup()));
+                address.getSecond_address()));
       }
     }
   }

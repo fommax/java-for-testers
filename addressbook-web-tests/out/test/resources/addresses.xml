@@ -10,26 +10,4 @@
     <second__email>semail@0</second__email>
     <third__email>3email@0</third__email>
   </address>
-  <address>
-    <firstname>firstname 1</firstname>
-    <lastname>lastname 1</lastname>
-    <address>address 1</address>
-    <homeNumber>hnumber 1</homeNumber>
-    <mobilePhoneNumber>mnumber 1</mobilePhoneNumber>
-    <workPhoneNumber>wnumber 1</workPhoneNumber>
-    <email>email@1</email>
-    <second__email>semail@1</second__email>
-    <third__email>3email@1</third__email>
-  </address>
-  <address>
-    <firstname>firstname 2</firstname>
-    <lastname>lastname 2</lastname>
-    <address>address 2</address>
-    <homeNumber>hnumber 2</homeNumber>
-    <mobilePhoneNumber>mnumber 2</mobilePhoneNumber>
-    <workPhoneNumber>wnumber 2</workPhoneNumber>
-    <email>email@2</email>
-    <second__email>semail@2</second__email>
-    <third__email>3email@2</third__email>
-  </address>
 </list>
