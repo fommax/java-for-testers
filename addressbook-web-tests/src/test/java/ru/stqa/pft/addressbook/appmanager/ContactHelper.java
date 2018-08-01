@@ -116,12 +116,24 @@ public class ContactHelper extends BaseHelper {
     deleteSelectedAddress();
     returnToHomePage();
   }
+
   public void delete(AddressData address) {
     selectAddressById(address.getId());
     deleteSelectedAddress();
     addressCache = null;
     returnToHomePage();
   }
+
+  public void addToGroup(AddressData address) {
+    selectAddressById(address.getId());
+    initAdditionToGroup();
+    returnToHomePage();
+  }
+
+  private void initAdditionToGroup() {
+    wd.findElement(By.name("add")).click();
+  }
+
 
   private Addresses addressCache = null;
 

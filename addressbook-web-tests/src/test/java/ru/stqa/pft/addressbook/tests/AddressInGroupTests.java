@@ -23,19 +23,31 @@ import static org.testng.Assert.*;
 
 public class AddressInGroupTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+    if (app.db().addresses().size() == 0) {
+      app.goTo().homePage();
+      app.contact().create(new AddressData()
+              .withFirstname("Alexander").withLastname("Brooks").withAddress("Huebscherstrasse 9")
+              .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390").withWorkPhoneNumber("02")
+              .withEmail("cold_soviet_steel@yahoo.com").withSecond_email("asoulyetunborn@gmail.com")
+              .withThird_email("aoulyetunborn@gmail.com").withSecond_address("Fellenbergstrasse 5"), true);
+    }
+  }
+
   @Test
-  public void testAddressAdding() {
+  public void testAddressAddition() {
     app.goTo().homePage();
     Addresses before = app.db().addresses();
-    AddressData modifiedAddress = before.iterator().next();
-    AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstname("Alexander").withLastname("Brux")
-            .withAddress("modHuebscherstrasse 9").withHomeNumber("mod62-49-58").withMobilePhoneNumber("mod89518392390")
-            .withWorkPhoneNumber("mod02").withEmail("modcold_soviet_steel@yahoo.com").withSecond_email("modasoulyetunborn@gmail.com")
-            .withThird_email("modaoulyetunborn@gmail.com").withSecond_address("modFellenbergstrasse 5");
-    app.contact().modify(address);
+    AddressData addressToAdd = before.iterator().next();
+    app.contact().addToGroup(addressToAdd);
     assertThat(app.contact().count(), equalTo(before.size()));
     Addresses after = app.db().addresses();
-    assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
+    assertThat(after, equalTo(before));
     verifyAddressListInUI();
 
   }
