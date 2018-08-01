@@ -41,28 +41,26 @@ public class AddressCreationTests extends TestBase{
         }
     }
 
-    @BeforeMethod  public void ensurePreconditionsGroups() {
+    /*@BeforeMethod  public void ensurePreconditionsGroups() {
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1"));
         }
-    }
+    }*/
 
 
     @Test(dataProvider = "validAddresses")
     public void testAddressCreation(AddressData address) {
         Groups groups = app.db().groups();
         app.goTo().homePage();
-
         Addresses before = app.db().addresses();
         //File photo = new File("src/test/resources/che.jpg");.withPhoto(photo)
-
-        AddressData newAddress = address.inGroup(groups.iterator().next());
-
-        app.contact().create(newAddress, true);
-        assertThat(app.contact().count(), equalTo(before.size() + 1));
+        app.contact().create(address.inGroup(groups.iterator().next()), true);
         Addresses after = app.db().addresses();
-        assertThat(after, equalTo(before.withAdded(newAddress.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
+
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
+
+        assertThat(after, equalTo(before.withAdded(address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
         verifyAddressListInUI();
 
     }

@@ -46,8 +46,8 @@ public class ContactHelper extends BaseHelper {
     }*/
     type(By.name("address2"), addressData.getSecond_address());
 
-    if (addressData.getGroups().size() > 0) {
-      if (creation) {
+    if (creation) {
+      if (addressData.getGroups().size() > 0) {
         Assert.assertTrue(addressData.getGroups().size() == 1);
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroups().iterator().next().getName());
       } else {
