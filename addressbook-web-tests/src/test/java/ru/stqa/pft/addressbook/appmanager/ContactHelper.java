@@ -130,6 +130,20 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
+  public void removeFromGroup(AddressData address) {
+    selectAddressById(address.getId());
+    initRemovalFromGroup();
+    returnToHomePage();
+  }
+
+  private void initRemovalFromGroup() {
+    wd.findElement(By.name("remove")).click();
+  }
+
+  public void groupByGroups() {
+    click(By.xpath("//form[@id='right']/select//option[3]"));
+  }
+
   private void initAdditionToGroup() {
     wd.findElement(By.name("add")).click();
   }
