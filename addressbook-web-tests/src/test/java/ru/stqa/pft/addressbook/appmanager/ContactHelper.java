@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -124,13 +125,15 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
-  public void addToGroup(AddressData address) {
+  public void addToGroup(AddressData address, GroupData group) {
     selectAddressById(address.getId());
+    selectGroupInMenu(group);
     initAdditionToGroup();
     returnToHomePage();
   }
 
-  public void removeFromGroup(AddressData address) {
+  public void removeFromGroup(AddressData address, GroupData group) {
+    selectGroupInFilter(group);
     selectAddressById(address.getId());
     initRemovalFromGroup();
     returnToHomePage();
@@ -148,6 +151,13 @@ public class ContactHelper extends BaseHelper {
     wd.findElement(By.name("add")).click();
   }
 
+  public void selectGroupInFilter (GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText((group.getName()));
+  }
+
+  public void selectGroupInMenu (GroupData group) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText((group.getName()));
+  }
 
   private Addresses addressCache = null;
 

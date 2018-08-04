@@ -65,4 +65,55 @@ public class TestBase {
                 .collect(Collectors.toSet())));
     }
   }
+
+  public void ensureAddressPresent() {
+    if (app.db().addresses().size() == 0) {
+      app.goTo().homePage();
+      app.contact().create(new AddressData()
+              .withFirstname("Alexander").withLastname("Brooks").withAddress("Huebscherstrasse 9")
+              .withHomeNumber("62-49-58").withMobilePhoneNumber("89518392390").withWorkPhoneNumber("02")
+              .withEmail("cold_soviet_steel@yahoo.com").withSecond_email("asoulyetunborn@gmail.com")
+              .withThird_email("aoulyetunborn@gmail.com").withSecond_address("Fellenbergstrasse 5"), true);
+    }
+  }
+
+  public void ensureGroupPresent() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+  }
+
+  public void ensureAddressWithNotAllGroupsPresent() {
+    Groups groups = app.db().groups();
+    Addresses addresses = app.db().addresses();
+    boolean freeGroupFound = false;
+    for (AddressData address : addresses) {
+      if (address.getGroups().size() != groups.size()) {
+        freeGroupFound = true;
+        break;
+      }
+    }
+    if (!freeGroupFound) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("testGroup"));
+    }
+  }
+
+  public void ensureAddressPresentInGroup() {
+    Groups groups = app.db().groups();
+    Addresses addresses = app.db().addresses();
+    boolean occupiedGroupFound = false;
+    for (AddressData contact : addresses) {
+      if (contact.getGroups().size() > 0) {
+        occupiedGroupFound = true;
+        break;
+      }
+    }
+    if (!occupiedGroupFound) {
+      app.goTo().homePage();
+      app.contact().addToGroup(addresses.iterator().next(), groups.iterator().next());
+    }
+  }
+
 }

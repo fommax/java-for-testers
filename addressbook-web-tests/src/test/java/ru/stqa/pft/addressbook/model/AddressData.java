@@ -273,4 +273,9 @@ public class AddressData {
     groups.add(group);
     return this;
   }
+
+  public AddressData fromGroup(GroupData group) {
+    groups.remove(group);
+    return this;
+  }
 }

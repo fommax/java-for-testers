@@ -27,7 +27,7 @@ public class GroupData {
     return new Addresses(addresses);
   }
 
-  @ManyToMany (mappedBy = "groups")
+  @ManyToMany (mappedBy = "groups", fetch = FetchType.EAGER)
   private Set<AddressData> addresses = new HashSet<AddressData>();
 
   @Expose
