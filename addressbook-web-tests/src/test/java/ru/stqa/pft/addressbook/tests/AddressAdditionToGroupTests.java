@@ -7,6 +7,9 @@ import ru.stqa.pft.addressbook.model.Addresses;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -26,9 +29,13 @@ public class AddressAdditionToGroupTests extends TestBase {
       AddressData satisfyingAddress = findContactNotInEveryGroup();
       Addresses beforeWithoutSatisfying = before.without(satisfyingAddress);
       GroupData satisfyingGroup = findAGroupWithout(satisfyingAddress);
+      Set<GroupData> groupsBefore = satisfyingAddress.getGroups(); //Получаем группы контакта до добавления контакта в другую группу
       app.contact().addToGroup(satisfyingAddress, satisfyingGroup);
       AddressData modifiedContact = satisfyingAddress.inGroup(satisfyingGroup);
       Addresses after = app.db().addresses();
+      Set<GroupData> expectedGroupsAfter = ((Groups) groupsBefore).withAdded(satisfyingGroup); //Инициализируем желаемый (не обязательно действительный) набор групп контакта
+
+      assertThat(satisfyingAddress.getGroups(), equalTo(expectedGroupsAfter)); // Сравниваем желаемый и действительный наборы групп контакта
 
       assertThat(after.size(), equalTo(before.size()));
       assertThat(after, equalTo(beforeWithoutSatisfying.withAdded(modifiedContact)));

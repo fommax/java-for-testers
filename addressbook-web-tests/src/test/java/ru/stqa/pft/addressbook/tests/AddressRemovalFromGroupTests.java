@@ -5,6 +5,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
+
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,10 +27,14 @@ public class AddressRemovalFromGroupTests extends TestBase{
       Addresses before = app.db().addresses();
       AddressData satisfyingAddress = findAnAddressWithAGroup();
       Addresses beforeWithoutSatisfying = before.without(satisfyingAddress);
+      Set<GroupData> groupsBefore = satisfyingAddress.getGroups(); //Получаем группы контакта до удаления контакта из одной из групп
       GroupData groupToRemoveFrom = satisfyingAddress.getGroups().iterator().next();
       app.contact().removeFromGroup(satisfyingAddress, groupToRemoveFrom);
       AddressData modifiedAddress = satisfyingAddress.fromGroup(groupToRemoveFrom);
       Addresses after = app.db().addresses();
+
+      Set<GroupData> expectedGroupsAfter = ((Groups) groupsBefore).without(groupToRemoveFrom); //Инициализируем желаемый (не обязательно действительный) набор групп контакта
+      assertThat(satisfyingAddress.getGroups(), equalTo(expectedGroupsAfter)); // Сравниваем желаемый и действительный наборы групп контакта
 
       assertThat(after.size(), equalTo(before.size()));
       assertThat(after, equalTo(beforeWithoutSatisfying.withAdded(modifiedAddress)));
