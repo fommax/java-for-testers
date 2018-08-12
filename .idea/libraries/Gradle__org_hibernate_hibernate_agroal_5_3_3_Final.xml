@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.hibernate:hibernate-agroal:5.3.3.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-agroal/5.3.3.Final/4bf093cf91889053b40ce9767fd2fb74089f3794/hibernate-agroal-5.3.3.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-agroal/5.3.3.Final/83495ac7616aa8106887fe12c801ffbadcb4534b/hibernate-agroal-5.3.3.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

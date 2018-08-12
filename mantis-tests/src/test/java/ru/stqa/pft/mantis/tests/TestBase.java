@@ -5,10 +5,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
+import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UserData;
 
+import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 public class TestBase {
 
@@ -37,6 +44,27 @@ public class TestBase {
   public void tearDown() throws IOException {
     app.ftp().restore("config_inc.php.bak", "config_inc.php");
     app.stop();
+  }
+
+  public void ensureUserPresent() throws MessagingException, IOException {
+    Long now = System.currentTimeMillis();
+    UserData newUser = new UserData()
+            .withUsername(String.format("user%s", now))
+            .withEmail(String.format("user%s@localhost", now))
+            .withPasswordMail("password").withPasswordMantis("password1");
+    if (app.db().getUserData().size() == 0) {
+      app.registration().start(newUser);
+      List<MailMessage> mailMessages = app.james().waitForMail(newUser, 60000);
+      String confirmationLink = findConfirmationLink(mailMessages, newUser);
+      app.registration().finish(confirmationLink, newUser);
+      assertTrue(app.newSession().login(newUser));
+    }
+  }
+
+  public String findConfirmationLink(List<MailMessage> mailMessages, UserData userData) {
+    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(userData.getEmail())).findFirst().get();
+    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+    return regex.getText(mailMessage.text);
   }
 
 }

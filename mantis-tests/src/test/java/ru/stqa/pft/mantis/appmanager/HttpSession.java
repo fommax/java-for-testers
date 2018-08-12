@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import ru.stqa.pft.mantis.model.UserData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,17 +25,17 @@ public class HttpSession {
     httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
   }
 
-  public boolean login(String username, String password) throws IOException {
+  public boolean login(UserData userData) throws IOException {
     HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php");
     List<NameValuePair> params = new ArrayList<NameValuePair>();
-    params.add(new BasicNameValuePair("username", username));
-    params.add(new BasicNameValuePair("password", password));
+    params.add(new BasicNameValuePair("username", userData.getUsername()));
+    params.add(new BasicNameValuePair("password", userData.getPasswordMantis()));
     params.add(new BasicNameValuePair("secure_session", "on"));
     params.add(new BasicNameValuePair("return", "index.php"));
     post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpClient.execute(post);
     String body = getTextFrom(response);
-    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>", userData.getUsername()));
   }
 
   private String getTextFrom(CloseableHttpResponse response) throws IOException {
@@ -45,10 +46,10 @@ public class HttpSession {
     }
   }
 
-  public boolean isLoggedInAs(String username) throws IOException {
+  public boolean isLoggedInAs(UserData userData) throws IOException {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpClient.execute(get);
     String body = getTextFrom(response);
-    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>", userData.getUsername()));
   }
 }

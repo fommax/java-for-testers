@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.agroal:agroal-pool:0.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.agroal/agroal-pool/0.4/dd834bc5cd04e1ce97ffb392672d0f19eedf0dc5/agroal-pool-0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.agroal/agroal-pool/0.4/df71db02662a5a307879ee7f389a99b7b51fd24f/agroal-pool-0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
