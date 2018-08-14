@@ -12,7 +12,7 @@ public class LoginTests extends  TestBase {
 
   @Test
   public void testLogin() throws IOException {
-    UserData adminUser = new UserData().withUsername("administrator").withPasswordMantis("root");
+    UserData adminUser = new UserData().withUsername(app.getProperty("web.adminlogin")).withPasswordMantis(app.getProperty("web.adminPassword"));
     HttpSession session = app.newSession();
     assertTrue(session.login(adminUser));
     assertTrue(session.isLoggedInAs(adminUser));

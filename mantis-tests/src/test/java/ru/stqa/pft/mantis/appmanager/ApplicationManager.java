@@ -19,7 +19,6 @@ public class ApplicationManager {
 
 
   private WebDriver wd;
-
   private String browser;
   private final Properties properties;
   private RegistrationHelper registrationHelper;
@@ -30,6 +29,7 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private DbHelper dbHelper;
   private UserHelper userHelper;
+  private SoapHelper soapHelper;
 
 
   public ApplicationManager(String browser)  {
@@ -73,12 +73,14 @@ public class ApplicationManager {
     }
     return sessionHelper;
   }
+
   public NavigationHelper goTo() {
     if (navigationHelper == null) {
       navigationHelper = new NavigationHelper(this);
     }
     return navigationHelper;
   }
+
   public UserHelper user() {
     if (userHelper == null) {
       userHelper = new UserHelper(this);
@@ -121,10 +123,19 @@ public class ApplicationManager {
     }
     return jamesHelper;
   }
+
   public DbHelper db() {
     if (dbHelper == null) {
       dbHelper = new DbHelper(this);
     }
     return dbHelper;
   }
+
+  public SoapHelper soap() {
+    if (soapHelper == null) {
+      soapHelper = new SoapHelper(this);
+    }
+    return soapHelper;
+  }
+
 }
