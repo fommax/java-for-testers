@@ -1,14 +1,27 @@
 package ru.stqa.pft.mantis.model;
 
+import java.util.Objects;
+
 public class Issue {
 
   private int id;
+  private String state_name;
   private String summary;
   private String description;
+  private String subject;
   private Project project;
 
   public int getId() {
     return id;
+  }
+
+  public String getSubject() {
+    return subject;
+  }
+
+  public Issue withSubject(String subject) {
+    this.subject = subject;
+    return this;
   }
 
   public Issue withId(int id) {
@@ -16,8 +29,17 @@ public class Issue {
     return this;
   }
 
+  public String getState_name() {
+    return state_name;
+  }
+
   public String getSummary() {
     return summary;
+  }
+
+  public Issue withState_name(String state_name) {
+    this.state_name = state_name;
+    return this;
   }
 
   public Issue withSummary(String summary) {
@@ -41,6 +63,21 @@ public class Issue {
   public Issue withProject(Project project) {
     this.project = project;
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Issue issue = (Issue) o;
+    return id == issue.id &&
+            Objects.equals(subject, issue.subject) &&
+            Objects.equals(description, issue.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, subject, description);
   }
 
 }

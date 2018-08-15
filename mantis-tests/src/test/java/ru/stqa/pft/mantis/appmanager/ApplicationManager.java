@@ -30,6 +30,7 @@ public class ApplicationManager {
   private DbHelper dbHelper;
   private UserHelper userHelper;
   private SoapHelper soapHelper;
+  private RestHelper restHelper;
 
 
   public ApplicationManager(String browser)  {
@@ -122,6 +123,13 @@ public class ApplicationManager {
       jamesHelper = new JamesHelper(this);
     }
     return jamesHelper;
+  }
+
+  public RestHelper rest() {
+    if (restHelper == null) {
+      restHelper = new RestHelper(this);
+    }
+    return restHelper;
   }
 
   public DbHelper db() {
