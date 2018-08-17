@@ -16,9 +16,9 @@ dependencies {
 
 }
 
-test {
+/*test {
     useTestNG()
-}
+}*/
 
 task testGroups (type: Test) {
     useTestNG {
@@ -41,6 +41,24 @@ task testGroups (type: Test) {
 task testAddresses (type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-addresses.xml'
+    }
+
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
+
+task testExtra (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-extra.xml'
     }
 
     if (project.hasProperty('browser')) {
