@@ -29,13 +29,13 @@ public class AddressAdditionToGroupTests extends TestBase {
       AddressData satisfyingAddress = findContactNotInEveryGroup();
       Addresses beforeWithoutSatisfying = before.without(satisfyingAddress);
       GroupData satisfyingGroup = findAGroupWithout(satisfyingAddress);
-      Set<GroupData> groupsBefore = satisfyingAddress.getGroups(); //Получаем группы контакта до добавления контакта в другую группу
+      Set<GroupData> groupsBefore = satisfyingAddress.getGroups(); //получаем группы контакта до добавления контакта в другую группу
       app.contact().addToGroup(satisfyingAddress, satisfyingGroup);
       AddressData modifiedContact = satisfyingAddress.inGroup(satisfyingGroup);
       Addresses after = app.db().addresses();
-      Set<GroupData> expectedGroupsAfter = ((Groups) groupsBefore).withAdded(satisfyingGroup); //Инициализируем желаемый (не обязательно действительный) набор групп контакта
+      Set<GroupData> expectedGroupsAfter = ((Groups) groupsBefore).withAdded(satisfyingGroup); //инициализируем желаемый (не обязательно действительный) набор групп контакта
 
-      assertThat(satisfyingAddress.getGroups(), equalTo(expectedGroupsAfter)); // Сравниваем желаемый и действительный наборы групп контакта
+      assertThat(satisfyingAddress.getGroups(), equalTo(expectedGroupsAfter)); //сравниваем желаемый и действительный наборы групп контакта
 
       assertThat(after.size(), equalTo(before.size()));
       assertThat(after, equalTo(beforeWithoutSatisfying.withAdded(modifiedContact)));
