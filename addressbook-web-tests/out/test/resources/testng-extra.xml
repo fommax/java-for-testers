@@ -5,6 +5,7 @@
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.AddressAdditionToGroupTests" />
             <class name="ru.stqa.pft.addressbook.tests.AddressRemovalFromGroupTests" />
+            <class name="ru.stqa.pft.addressbook.tests.AddressInGroupTests" />
             <class name="ru.stqa.pft.addressbook.tests.DbConnectionTests" />
             <class name="ru.stqa.pft.addressbook.tests.DbHbConnectionTests" />
         </classes>
